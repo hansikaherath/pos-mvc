@@ -4,6 +4,7 @@
  */
 package pos.mvc.view;
 
+import pos.mvc.controller.CustomerController;
 import pos.mvc.model.CustomerModel;
 
 /**
@@ -12,10 +13,12 @@ import pos.mvc.model.CustomerModel;
  */
 public class CustomerView extends javax.swing.JFrame {
 
+    private CustomerController customerController;
     /**
      * Creates new form CustomerVIew
      */
     public CustomerView() {
+        customerController = new CustomerController();
         initComponents();
     }
 
@@ -373,6 +376,6 @@ public class CustomerView extends javax.swing.JFrame {
                 custProvinceText.getText(), 
                 custZipText.getText());
  
-        System.out.println("Customer : " + customer.toString());
+        String resp = customerController.saveCustomer(customer);
     }
 }
