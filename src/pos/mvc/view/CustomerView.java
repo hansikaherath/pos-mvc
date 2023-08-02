@@ -4,6 +4,10 @@
  */
 package pos.mvc.view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import pos.mvc.controller.CustomerController;
 import pos.mvc.model.CustomerModel;
 
@@ -364,18 +368,25 @@ public class CustomerView extends javax.swing.JFrame {
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 
-    private void saveCustomer() {
-        CustomerModel customer = new CustomerModel(
-                custIdText.getText(), 
-                custTitleText.getText(), 
-                custNameText.getText(), 
-                custDobText.getText(), 
-                Double.parseDouble(custSalaryText.getText()), 
-                custAddressText.getText(), 
-                custCityText.getText(), 
-                custProvinceText.getText(), 
-                custZipText.getText());
- 
-        String resp = customerController.saveCustomer(customer);
+     private void saveCustomer() {
+        
+            CustomerModel customer = new CustomerModel(custIdText.getText(),
+                    custTitleText.getText(),
+                    custNameText.getText(),
+                    custDobText.getText(),
+                    Double.parseDouble(custSalaryText.getText()),
+                    custAddressText.getText(),
+                    custCityText.getText(),
+                    custProvinceText.getText(),
+                    custZipText.getText());
+            
+        try {
+            String resp = customerController.saveCustomer(customer);
+            JOptionPane.showMessageDialog(this, resp);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }
 }
